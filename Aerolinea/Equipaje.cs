@@ -24,13 +24,12 @@ namespace Aerolinea
 
         // Propiedades
         public bool EsLegal { get => esLegal; private set => esLegal = value; }
-        public int Peso { get => peso; set => peso = value; }
+        public int Peso { get => peso; private set => peso = value; }
         public string Contenido { get => contenido; private set => contenido = value; }
 
         // Métodos
         public void RevisarContenido()
         {
-            //Thread.Sleep(2000);
             int num = random.Next(1, 11);
             switch (num)
             {
@@ -86,7 +85,6 @@ namespace Aerolinea
         }
         public void Pesar()
         {
-            //Thread.Sleep(2000);
             this.Peso = random.Next(15, 40);
         }
     }
