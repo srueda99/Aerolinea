@@ -8,9 +8,25 @@ namespace Aerolinea
 {
     internal class Clase_Turista: Tiquete
     {
-        public Clase_Turista(Vuelo vuelo) : base(vuelo)
+        public Clase_Turista(Vuelo vuelo, Usuario usuario) : base(vuelo, usuario) { }
+
+        // Métodos
+        public override void CalcularPrecio()
         {
-            // Se sobreescriben los métodos que estén en virtual de la clase padre
+            this.PrecioTotal = this.PrecioBase + this.CobrarEquipaje();
+        }
+        public override int CobrarEquipaje()
+        {
+            int lim = 23;
+            int cobro = 0;
+            foreach (Equipaje maleta in this.Maletas)
+            {
+                if (maleta.Peso > lim)
+                {
+                    cobro += (maleta.Peso - lim) * 5;
+                }
+            }
+            return cobro;
         }
     }
 }

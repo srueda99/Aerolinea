@@ -8,9 +8,17 @@ namespace Aerolinea
 {
     internal class Primera_Clase: Tiquete
     {
-        public Primera_Clase(Vuelo vuelo): base(vuelo)
+        public Primera_Clase(Vuelo vuelo, Usuario usuario): base(vuelo, usuario) { }
+
+        // Métodos
+        public override void CalcularPrecio()
         {
-            // Se sobreescriben los métodos que estén en virtual de la clase padre
+            this.PrecioTotal = (this.PrecioBase * 1.5) + this.CobrarEquipaje();
+        }
+        public override int CobrarEquipaje()
+        {
+            int cobro = 0;
+            return cobro;
         }
     }
 }

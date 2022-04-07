@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Clase_Ejecutiva.cs" />
     <Compile Include="Clase_Turista.cs" />
-    <Compile Include="Destino.cs" />
+    <Compile Include="Ciudad.cs" />
     <Compile Include="Equipaje.cs" />
     <Compile Include="Primera_Clase.cs" />
     <Compile Include="Program.cs" />
