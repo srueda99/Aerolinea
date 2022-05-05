@@ -11,7 +11,7 @@ namespace Aerolinea
         public Primera_Clase(Vuelo vuelo, Usuario usuario): base(vuelo, usuario) { }
 
         // Métodos
-        public override void CalcularPrecio()
+        public override void CalcularPrecioTotal()
         {
             this.PrecioTotal = (this.PrecioBase * 1.5) + this.CobrarEquipaje();
         }

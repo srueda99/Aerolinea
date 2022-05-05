@@ -9,8 +9,10 @@ namespace Aerolinea
     abstract class Tiquete
     {
         // Atributos
+        public enum Tipos { Primera, Ejecutiva, Turista };
         protected double precioTotal;
         protected double precioBase;
+        protected Tipos tipo;
         protected Vuelo vuelo;
         protected Usuario usuario;
         protected List<Equipaje> maletas = new List<Equipaje>();
@@ -20,22 +22,25 @@ namespace Aerolinea
         {
             this.Vuelo = vuelo;
             this.precioBase = this.Vuelo.CostoViaje;
-            this.CalcularPrecio();
+            this.CalcularPrecioTotal();
             // this.CobrarEquipaje();
         }
 
         // Propiedades
         public double PrecioTotal { get => precioTotal; protected set => precioTotal = value; }
         public double PrecioBase { get => precioBase; protected set => precioBase = value; }
+        public Tipos Tipo { get => tipo; protected set => tipo = value; }
         public Vuelo Vuelo { get => vuelo; protected set => vuelo = value; }
-        protected Usuario Usuario { get => usuario; set => usuario = value; }
-        protected List<Equipaje> Maletas { get => maletas; set => maletas = value; }
+        public Usuario Usuario { get => usuario; protected set => usuario = value; }
+        public List<Equipaje> Maletas { get => maletas; protected set => maletas = value; }
 
         // Métodos
-        public abstract void CalcularPrecio();
+        public abstract void CalcularPrecioTotal();
+        // Borrar el siguiente
         public abstract int CobrarEquipaje();
         public void AggEquipaje()
         {
+            // Verificación
             maletas.Add(new Equipaje());
             this.CobrarEquipaje();
         }

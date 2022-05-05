@@ -23,6 +23,7 @@ namespace Aerolinea
             this.CupoMaximo = cupoMaximo;
             this.Origen = origen;
             this.Destino = destino;
+            this.VerifInternacional();
             // Corre los métodos
         }
 
@@ -36,7 +37,17 @@ namespace Aerolinea
         public List<Usuario> Pasajeros { get => pasajeros; }
 
         // Métodos
-        // verifInternacional(){}
-        // obtenerCosto(){}
+        public void VerifInternacional()
+        {
+            if(this.Origen.Pais != this.Destino.Pais)
+            {
+                this.EsInternacional = true;
+            }
+            else
+            {
+                this.EsInternacional = false;
+            }
+        }
+        // ObtenerCosto(){}
     }
 }
