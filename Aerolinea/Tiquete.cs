@@ -12,6 +12,7 @@ namespace Aerolinea
         public enum Tipos { Primera, Ejecutiva, Turista };
         protected double precioTotal;
         protected double precioBase;
+        protected double multa;
         protected Tipos tipo;
         protected Vuelo vuelo;
         protected Usuario usuario;
@@ -21,14 +22,15 @@ namespace Aerolinea
         protected Tiquete(Vuelo vuelo, Usuario usuario)
         {
             this.Vuelo = vuelo;
+            this.Usuario = usuario;
             this.precioBase = this.Vuelo.CostoViaje;
-            this.CalcularPrecioTotal();
-            // this.CobrarEquipaje();
+            this.Multa = 0;
         }
 
         // Propiedades
         public double PrecioTotal { get => precioTotal; protected set => precioTotal = value; }
         public double PrecioBase { get => precioBase; protected set => precioBase = value; }
+        public double Multa { get => multa; protected set => multa = value; }
         public Tipos Tipo { get => tipo; protected set => tipo = value; }
         public Vuelo Vuelo { get => vuelo; protected set => vuelo = value; }
         public Usuario Usuario { get => usuario; protected set => usuario = value; }
@@ -36,17 +38,62 @@ namespace Aerolinea
 
         // Métodos
         public abstract void CalcularPrecioTotal();
-        // Borrar el siguiente
         public abstract int CobrarEquipaje();
-        public void AggEquipaje()
+        public void AggEquipaje(int numMaletas)
         {
-            // Verificación
-            maletas.Add(new Equipaje());
-            this.CobrarEquipaje();
+            int i = 0;
+            Equipaje eq;
+            while (i < numMaletas)
+            {
+                eq = new Equipaje();
+                if(!eq.EsLegal)
+                {
+                    this.Multa += 1000;
+                    // Print no se pudo registrar una maleta porque...
+                }
+                else
+                {
+                    this.maletas.Add(eq);
+                }
+                this.CalcularPrecioTotal();
+                i++;
+            }
         }
-        public void VenderTiquete()
+        public virtual void VenderTiquete()
         {
-
+            if (this.Vuelo.EsInternacional)
+            {
+                if (this.Usuario.TienePasaporte)
+                {
+                    if(this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
+                    {
+                        // Tiquete vendido
+                        // correr el método de precio total
+                        this.Vuelo.NumPasajeros++;
+                    }
+                    else
+                    {
+                        // No hay más cupos
+                    }
+                }
+                else
+                {
+                    // No puede viajar internacionalmente
+                }
+            }
+            else
+            {
+                if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
+                {
+                    // Tiquete vendido
+                    // correr el método de precio total
+                    this.Vuelo.NumPasajeros++;
+                }
+                else
+                {
+                    // No hay más cupos
+                }
+            }
         }
     }
 }

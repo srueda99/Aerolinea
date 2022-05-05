@@ -8,17 +8,24 @@ namespace Aerolinea
 {
     internal class Clase_Turista: Tiquete
     {
-        public Clase_Turista(Vuelo vuelo, Usuario usuario) : base(vuelo, usuario) { }
+        public Clase_Turista(Vuelo vuelo, Usuario usuario) : base(vuelo, usuario)
+        {
+            this.Tipo = Tipos.Turista;
+        }
 
         // Métodos
         public override void CalcularPrecioTotal()
         {
-            this.PrecioTotal = this.PrecioBase + this.CobrarEquipaje();
+            this.PrecioTotal = this.PrecioBase + this.CobrarEquipaje() + this.Multa;
         }
         public override int CobrarEquipaje()
         {
             int lim = 23;
             int cobro = 0;
+            if (this.Maletas.Count > 2)
+            {
+                cobro = (this.Maletas.Count - 2) * 20;
+            }
             foreach (Equipaje maleta in this.Maletas)
             {
                 if (maleta.Peso > lim)

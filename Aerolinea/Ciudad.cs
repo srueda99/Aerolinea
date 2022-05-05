@@ -26,8 +26,8 @@ namespace Aerolinea
         }
 
         // Propiedades
-        public string Pais { get => pais; private set => pais = value; }
         public string Nombre { get => nombre; private set => nombre = value; }
+        public string Pais { get => pais; private set => pais = value; }
         public double Latitud { get => latitud; set => latitud = value; }
         public double Longitud { get => longitud; set => longitud = value; }
 
@@ -37,7 +37,7 @@ namespace Aerolinea
             int i = 0;
             while(i < ciudades.Count)
             {
-                Console.WriteLine(i +". "+ ciudades[i].Nombre);
+                Console.WriteLine(i +". "+ ciudades[i].Nombre +", "+ ciudades[i].Pais);
             }
         }
     }
