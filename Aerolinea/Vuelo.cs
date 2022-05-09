@@ -37,17 +37,27 @@ namespace Aerolinea
         // Métodos
         public void VerifInternacional()
         {
-            if(this.Origen.Pais != this.Destino.Pais)
+            try
             {
-                this.EsInternacional = true;
-                this.CupoMaximo = 15;
+                if (this.Origen.Pais != this.Destino.Pais)
+                {
+                    this.EsInternacional = true;
+                    this.CupoMaximo = 15;
+                }
+                else
+                {
+                    this.EsInternacional = false;
+                    this.CupoMaximo = 10;
+                }
             }
-            else
+            catch(Exception e)
             {
-                this.EsInternacional = false;
-                this.CupoMaximo = 10;
+                Console.WriteLine("Error encontrado al verificar el vuelo: {0}", e);
             }
         }
-        // ObtenerCosto(){}
+        public void ObtenerCosto()
+        {
+            
+        }
     }
 }
