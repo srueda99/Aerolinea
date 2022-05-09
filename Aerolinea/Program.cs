@@ -10,16 +10,8 @@ namespace Aerolinea
     {
         static void Main(string[] args)
         {
-            Equipaje maleta1 = new Equipaje();
-            Equipaje maleta2 = new Equipaje();
-            Equipaje maleta3 = new Equipaje();
-
-            maleta3.Pesar();
-            maleta3.RevisarContenido();
-
-            Console.WriteLine(maleta1.Peso + " " + maleta1.Contenido + " " + maleta1.EsLegal);
-            Console.WriteLine(maleta2.Peso + " " + maleta2.Contenido + " " + maleta2.EsLegal);
-            Console.WriteLine(maleta3.Peso + " " + maleta3.Contenido + " " + maleta3.EsLegal);
+            Ciudad.CargarCiudades();
+            Ciudad.VerCiudades();
         }
     }
 }

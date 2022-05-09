@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace Aerolinea
     {
         // Atributos
         private string nombre;
+        private string pais;
         private double latitud;
         private double longitud;
-        private string pais;
         private static List<Ciudad> ciudades = new List<Ciudad>();
 
         // Constructor
@@ -32,12 +33,49 @@ namespace Aerolinea
         public double Longitud { get => longitud; set => longitud = value; }
 
         // Métodos
-        public void VerCiudades(){
-            Console.WriteLine("Las ciudades disponibles para vuelos son:");
-            int i = 0;
-            while(i < ciudades.Count)
+        public static void VerCiudades()
+        {
+            try
             {
-                Console.WriteLine(i +". "+ ciudades[i].Nombre +", "+ ciudades[i].Pais);
+                Console.WriteLine("Las ciudades disponibles para vuelos son:");
+                int i = 0;
+                while (i < ciudades.Count)
+                {
+                    Console.WriteLine((i + 1) + ". " + ciudades[i].Nombre + ", " + ciudades[i].Pais);
+                    i++;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error encontrado al listar las ciudades: {0}", e);
+            }
+        }
+
+        public static void CargarCiudades()
+        {
+            try
+            {
+                var archivo = new StreamReader(File.OpenRead(@"C:\Users\s_rue\Documents\POO\C#\Aerolinea\Aerolinea\ciudades.csv"));
+                string linea;
+                string nombre;
+                string pais;
+                double latitud;
+                double longitud;
+                Ciudad ciudadAux;
+                while ((linea = archivo.ReadLine()) != null)
+                {
+                    string[] fila = linea.Split(',');
+                    nombre = fila[0];
+                    pais = fila[1];
+                    latitud = Convert.ToDouble(fila[2]);
+                    longitud = Convert.ToDouble(fila[3]);
+
+                    ciudadAux = new Ciudad(nombre, pais, latitud, longitud);
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error encontrado al cargar las ciudades: {0}", e);
             }
         }
     }
