@@ -42,14 +42,14 @@ namespace Aerolinea
         {
             try
             {
-                if (string.Equals(Origen.Pais, Destino.Pais))
+                if(string.Equals(Origen.Pais, Destino.Pais))
                 {
-                    this.EsInternacional = true;
-                    this.CupoMaximo = 15;
+                    this.EsInternacional = false;
+                    this.CupoMaximo = 5;
                 }
                 else
                 {
-                    this.EsInternacional = false;
+                    this.EsInternacional = true;
                     this.CupoMaximo = 10;
                 }
             }
@@ -69,7 +69,6 @@ namespace Aerolinea
                 double lon2 = this.Destino.Longitud;
                 double dist = Haversine.CalcularDistancia(lat1, lon1, lat2, lon2);
                 this.CostoViaje = dist * tarifa;
-                Console.WriteLine(dist);
             }
             catch (Exception e)
             {

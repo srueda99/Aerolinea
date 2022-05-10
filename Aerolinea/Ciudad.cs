@@ -55,9 +55,7 @@ namespace Aerolinea
         {
             try
             {
-                //C:\Users\Sebastian.Rueda\Documents\Code\C#\Aerolinea\Aerolinea\ciudades.csv
-                //C:\Users\s_rue\Documents\POO\C#\Aerolinea\Aerolinea\ciudades.csv
-                var archivo = new StreamReader(File.OpenRead(@"C:\Users\Sebastian.Rueda\Documents\Code\C#\Aerolinea\Aerolinea\ciudades.csv"));
+                var archivo = new StreamReader(File.OpenRead(@"ciudades.csv"));
                 string linea;
                 string nombre;
                 string pais;

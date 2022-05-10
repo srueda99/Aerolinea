@@ -377,7 +377,7 @@ namespace Aerolinea
                 cliente = Usuario.EncontrarUsuario(cedula);
                 if(cliente.Tiquete == null)
                 {
-                    Console.Write("No tiene ninguna factura a su nombre.");
+                    Console.WriteLine("No tiene ninguna factura a su nombre.");
                 }
                 else
                 {
@@ -386,7 +386,7 @@ namespace Aerolinea
             }
             else
             {
-                Console.Write("El usuario no se encuentra registrado.");
+                Console.WriteLine("El usuario no se encuentra registrado.");
             }
         }
     }
