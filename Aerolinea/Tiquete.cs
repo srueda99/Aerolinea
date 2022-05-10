@@ -23,8 +23,9 @@ namespace Aerolinea
         {
             this.Vuelo = vuelo;
             this.Usuario = usuario;
-            this.precioBase = this.Vuelo.CostoViaje;
+            this.PrecioBase = this.Vuelo.CostoViaje;
             this.Multa = 0;
+            this.CalcularPrecioTotal();
         }
 
         // Propiedades
@@ -41,59 +42,92 @@ namespace Aerolinea
         public abstract int CobrarEquipaje();
         public void AggEquipaje(int numMaletas)
         {
-            int i = 0;
-            Equipaje eq;
-            while (i < numMaletas)
+            try
             {
-                eq = new Equipaje();
-                if(!eq.EsLegal)
+                int i = 0;
+                Equipaje eq;
+                while (i < numMaletas)
                 {
-                    this.Multa += 1000;
-                    // Print no se pudo registrar una maleta porque...
-                }
-                else
-                {
-                    this.maletas.Add(eq);
-                }
-                this.CalcularPrecioTotal();
-                i++;
-            }
-        }
-        public virtual void VenderTiquete()
-        {
-            if (this.Vuelo.EsInternacional)
-            {
-                if (this.Usuario.TienePasaporte)
-                {
-                    if(this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
+                    eq = new Equipaje();
+                    if (!eq.EsLegal)
                     {
-                        // Tiquete vendido
-                        // correr el método de precio total
-                        this.Vuelo.NumPasajeros++;
+                        this.Multa += 1000;
+                        Console.WriteLine("Una de sus maletas no se pudo registrar ya que contiene {0}, se le cobrará una multa de $1000 USD", eq.Contenido);
                     }
                     else
                     {
-                        // No hay más cupos
+                        this.maletas.Add(eq);
+                    }
+                    this.CalcularPrecioTotal();
+                    i++;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error encontrado registrar el equipaje: {0}", e.Message);
+            }
+        }
+        public virtual bool VenderTiquete()
+        {
+            try
+            {
+                if (this.Vuelo.EsInternacional)
+                {
+                    if (this.Usuario.TienePasaporte)
+                    {
+                        if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
+                        {
+                            this.CalcularPrecioTotal();
+                            this.Usuario.Tiquete = this;
+                            this.Vuelo.NumPasajeros++;
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No puede comprar tiquetes para vuelos internacionales sin pasaporte.");
+                        return false;
                     }
                 }
                 else
                 {
-                    // No puede viajar internacionalmente
+                    if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
+                    {
+                        this.CalcularPrecioTotal();
+                        this.Usuario.Tiquete = this;
+                        this.Vuelo.NumPasajeros++;
+                        return true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
+                        return false;
+                    }
                 }
             }
-            else
+            catch (Exception e)
             {
-                if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
-                {
-                    // Tiquete vendido
-                    // correr el método de precio total
-                    this.Vuelo.NumPasajeros++;
-                }
-                else
-                {
-                    // No hay más cupos
-                }
+                Console.WriteLine("Error encontrado al vender el tiquete: {0}", e.Message);
+                return false;
             }
+        }
+        public override string ToString()
+        {
+            return "Tiquete de tipo " + this.Tipo + "\n" +
+                    "Usuario: " + this.Usuario.Nombre + "\n" +
+                    "Ciudad partida: " + this.Vuelo.Origen.Nombre + "\n" +
+                    "Ciudad llegada: " + this.Vuelo.Destino.Nombre + "\n" +
+                    "Costo base: " + this.PrecioBase + "\n" +
+                    "Costo equipaje: " + this.CobrarEquipaje() + "\n" +
+                    "Multas: " + this.Multa + "\n" +
+                    "---------------------------------" + "\n" +
+                    "Total: " + this.PrecioTotal;
+                
         }
     }
 }

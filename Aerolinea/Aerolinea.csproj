@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Operaciones">
-      <HintPath>..\Operaciones\bin\Debug\net6.0\Operaciones.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,16 +46,26 @@
     <Compile Include="Clase_Ejecutiva.cs" />
     <Compile Include="Clase_Turista.cs" />
     <Compile Include="Ciudad.cs" />
+    <Compile Include="Ejecutiva.cs" />
     <Compile Include="Equipaje.cs" />
+    <Compile Include="IImpresion.cs" />
+    <Compile Include="Primera.cs" />
     <Compile Include="Primera_Clase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tiquete.cs" />
+    <Compile Include="Turista.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Vuelo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ops\Ops.csproj">
+      <Project>{4e2bf68f-4642-47b8-ab42-2c3bdfd6e938}</Project>
+      <Name>Ops</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

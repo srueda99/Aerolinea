@@ -23,7 +23,7 @@ namespace Aerolinea
             this.Pais = pais;
             this.Latitud = latitud;
             this.Longitud = longitud;
-            Ciudad.ciudades.Add(this);
+            ciudades.Add(this);
         }
 
         // Propiedades
@@ -47,7 +47,7 @@ namespace Aerolinea
             }
             catch(Exception e)
             {
-                Console.WriteLine("Error encontrado al listar las ciudades: {0}", e);
+                Console.WriteLine("Error encontrado al listar las ciudades: {0}", e.Message);
             }
         }
 
@@ -55,7 +55,9 @@ namespace Aerolinea
         {
             try
             {
-                var archivo = new StreamReader(File.OpenRead(@"C:\Users\s_rue\Documents\POO\C#\Aerolinea\Aerolinea\ciudades.csv"));
+                //C:\Users\Sebastian.Rueda\Documents\Code\C#\Aerolinea\Aerolinea\ciudades.csv
+                //C:\Users\s_rue\Documents\POO\C#\Aerolinea\Aerolinea\ciudades.csv
+                var archivo = new StreamReader(File.OpenRead(@"C:\Users\Sebastian.Rueda\Documents\Code\C#\Aerolinea\Aerolinea\ciudades.csv"));
                 string linea;
                 string nombre;
                 string pais;
@@ -64,7 +66,7 @@ namespace Aerolinea
                 Ciudad ciudadAux;
                 while ((linea = archivo.ReadLine()) != null)
                 {
-                    string[] fila = linea.Split(',');
+                    string[] fila = linea.Split(';');
                     nombre = fila[0];
                     pais = fila[1];
                     latitud = Convert.ToDouble(fila[2]);
@@ -75,7 +77,28 @@ namespace Aerolinea
             }
             catch(Exception e)
             {
-                Console.WriteLine("Error encontrado al cargar las ciudades: {0}", e);
+                Console.WriteLine("Error encontrado al cargar las ciudades: {0}", e.Message);
+            }
+        }
+        public static Ciudad EncontrarCiudad(string nombre)
+        {
+            try
+            {
+                Ciudad hallada = null;
+                foreach (Ciudad ciudad in ciudades)
+                {
+                    if (string.Equals(ciudad.Nombre, nombre))
+                    {
+                        hallada = ciudad;
+                        break;
+                    }
+                }
+                return hallada;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error encontrado al buscar la ciudad: {0}", e.Message);
+                return null;
             }
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aerolinea
 {
-    internal class Clase_Ejecutiva: Tiquete
+    internal class Clase_Ejecutiva : Tiquete
     {
         public Clase_Ejecutiva(Vuelo vuelo, Usuario usuario) : base(vuelo, usuario)
         {
@@ -16,71 +16,103 @@ namespace Aerolinea
         // Métodos
         public override void CalcularPrecioTotal()
         {
-            this.PrecioTotal = (this.PrecioBase * 1.2) + this.CobrarEquipaje() + this.Multa;
+            try
+            {
+                this.PrecioTotal = (this.PrecioBase * 1.2) + this.CobrarEquipaje() + this.Multa;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error encontrado al calcular el precio total: {0}", e.Message);
+            }
         }
         public override int CobrarEquipaje()
         {
-            int lim = 30;
-            int cobro = 0;
-            if (this.Maletas.Count > 2)
+            try
             {
-                cobro = (this.Maletas.Count - 2) * 25;
-            }
-            foreach (Equipaje maleta in this.Maletas)
-            {
-                if (maleta.Peso > lim)
+                int lim = 30;
+                int cobro = 0;
+                if (this.Maletas.Count > 2)
                 {
-                    cobro += (maleta.Peso - lim) * 5;
+                    cobro = (this.Maletas.Count - 2) * 25;
                 }
+                foreach (Equipaje maleta in this.Maletas)
+                {
+                    if (maleta.Peso > lim)
+                    {
+                        cobro += (maleta.Peso - lim) * 5;
+                    }
+                }
+                return cobro;
             }
-            return cobro;
-        }
-        public override void VenderTiquete()
-        {
-            if (this.Vuelo.EsInternacional)
+            catch (Exception e)
             {
-                if (this.Usuario.TienePasaporte)
+                Console.WriteLine("Error encontrado al cobrar el equipaje: {0}", e.Message);
+                return -1;
+            }
+        }
+        public override bool VenderTiquete()
+        {
+            try
+            {
+                if (this.Vuelo.EsInternacional)
+                {
+                    if (this.Usuario.TienePasaporte)
+                    {
+                        if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
+                        {
+                            if (this.Usuario.EsEjecutivo)
+                            {
+                                this.CalcularPrecioTotal();
+                                this.Usuario.Tiquete = this;
+                                this.Vuelo.NumPasajeros++;
+                                return true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("No puede comprar el tiquete porque no es un usuario de tipo Ejecutivo.");
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No puede comprar tiquetes para vuelos internacionales sin pasaporte.");
+                        return false;
+                    }
+                }
+                else
                 {
                     if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
                     {
                         if (this.Usuario.EsEjecutivo)
                         {
-                            // Tiquete vendido
+                            this.CalcularPrecioTotal();
+                            this.Usuario.Tiquete = this;
                             this.Vuelo.NumPasajeros++;
+                            return true;
                         }
                         else
                         {
-                            // No es un usuario ejecutivo
+                            Console.WriteLine("No puede comprar el tiquete porque no es un usuario de tipo Ejecutivo.");
+                            return false;
                         }
                     }
                     else
                     {
-                        // No hay más cupos
+                        Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
+                        return false;
                     }
-                }
-                else
-                {
-                    // No puede viajar internacionalmente
                 }
             }
-            else
+            catch (Exception e)
             {
-                if (this.Vuelo.NumPasajeros < this.Vuelo.CupoMaximo)
-                {
-                    if (this.Usuario.EsEjecutivo)
-                    {
-                        // Tiquete vendido
-                        this.Vuelo.NumPasajeros++;
-                    }
-                    else
-                    {
-                        // No es un usuario ejecutivo
-                    }
-                }
-                else
-                {
-                    // No hay más cupos
-                }
+                Console.WriteLine("Error encontrado al vender el tiquete: {0}", e.Message);
+                return false;
             }
         }
     }

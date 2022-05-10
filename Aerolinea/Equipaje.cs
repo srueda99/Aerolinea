@@ -86,7 +86,7 @@ namespace Aerolinea
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error encontrado al revisar el contenido del equipaje: {0}", e);
+                Console.WriteLine("Error encontrado al revisar el contenido del equipaje: {0}", e.Message);
             }
         }
         public void Pesar()
@@ -97,7 +97,7 @@ namespace Aerolinea
             }
             catch(Exception e)
             {
-                Console.WriteLine("Error encontrado al pesar el equipaje: {0}", e);
+                Console.WriteLine("Error encontrado al pesar el equipaje: {0}", e.Message);
             }
         }
     }

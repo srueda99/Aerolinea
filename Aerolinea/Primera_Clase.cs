@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Aerolinea
 {
-    internal class Primera_Clase: Tiquete
+    internal class Primera_Clase : Tiquete
     {
-        public Primera_Clase(Vuelo vuelo, Usuario usuario): base(vuelo, usuario)
+        public Primera_Clase(Vuelo vuelo, Usuario usuario) : base(vuelo, usuario)
         {
             this.Tipo = Tipos.Primera;
         }
@@ -16,16 +16,31 @@ namespace Aerolinea
         // Métodos
         public override void CalcularPrecioTotal()
         {
-            this.PrecioTotal = (this.PrecioBase * 1.6) + this.CobrarEquipaje() + this.Multa;
+            try
+            {
+                this.PrecioTotal = (this.PrecioBase * 1.6) + this.CobrarEquipaje() + this.Multa;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error encontrado al calcular el precio total: {0}", e.Message);
+            }
         }
         public override int CobrarEquipaje()
         {
-            int cobro = 0;
-            if (this.Maletas.Count > 2)
+            try
             {
-                cobro = (this.Maletas.Count - 2)*30;
+                int cobro = 0;
+                if (this.Maletas.Count > 2)
+                {
+                    cobro = (this.Maletas.Count - 2) * 30;
+                }
+                return cobro;
             }
-            return cobro;
+            catch (Exception e)
+            {
+                Console.WriteLine("Error encontrado al cobrar el equipaje: {0}", e.Message);
+                return -1;
+            }
         }
     }
 }
