@@ -49,6 +49,7 @@ namespace Aerolinea
                     if (!eq.EsLegal)
                     {
                         this.Multa += 1000;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine("Una de sus maletas no se pudo registrar ya que contiene {0}, se le cobrará una multa de $1000 USD", eq.Contenido);
                     }
                     else
@@ -81,12 +82,14 @@ namespace Aerolinea
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
                             return false;
                         }
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine("No puede comprar tiquetes para vuelos internacionales sin pasaporte.");
                         return false;
                     }
@@ -102,6 +105,7 @@ namespace Aerolinea
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
                         return false;
                     }

@@ -34,7 +34,9 @@ namespace Aerolinea
         {
             try
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("Las ciudades disponibles para vuelos son:");
+                Console.ForegroundColor = ConsoleColor.White;
                 int i = 0;
                 while (i < ciudades.Count)
                 {

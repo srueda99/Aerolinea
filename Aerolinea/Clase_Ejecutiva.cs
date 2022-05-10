@@ -17,7 +17,7 @@ namespace Aerolinea
                 this.PrecioTotal = (this.PrecioBase * 1.2) + this.CobrarEquipaje() + this.Multa;
             }
             catch (Exception e)
-            {
+            { 
                 Console.WriteLine("Error encontrado al calcular el precio total: {0}", e.Message);
             }
         }
@@ -65,18 +65,21 @@ namespace Aerolinea
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Magenta;
                                 Console.WriteLine("No puede comprar el tiquete porque no es un usuario de tipo Ejecutivo.");
                                 return false;
                             }
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
                             return false;
                         }
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine("No puede comprar tiquetes para vuelos internacionales sin pasaporte.");
                         return false;
                     }
@@ -94,12 +97,14 @@ namespace Aerolinea
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Magenta;
                             Console.WriteLine("No puede comprar el tiquete porque no es un usuario de tipo Ejecutivo.");
                             return false;
                         }
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                         Console.WriteLine("No puede comprar el tiquete porque ya no hay asientos disponibles en el avión.");
                         return false;
                     }
