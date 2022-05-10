@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ops;
 
 namespace Aerolinea
@@ -367,26 +363,33 @@ namespace Aerolinea
         }
         public static void ConsultarFactura()
         {
-            Usuario cliente;
-
-            // Verifica que el usuario exista, sino, lo crea.
-            Console.Write("Ingrese su cédula: ");
-            string cedula = Console.ReadLine();
-            if (Usuario.EncontrarUsuario(cedula) != null)
+            try
             {
-                cliente = Usuario.EncontrarUsuario(cedula);
-                if(cliente.Tiquete == null)
+                Usuario cliente;
+
+                // Verifica que el usuario exista, sino, lo crea.
+                Console.Write("Ingrese su cédula: ");
+                string cedula = Console.ReadLine();
+                if (Usuario.EncontrarUsuario(cedula) != null)
                 {
-                    Console.WriteLine("No tiene ninguna factura a su nombre.");
+                    cliente = Usuario.EncontrarUsuario(cedula);
+                    if (cliente.Tiquete == null)
+                    {
+                        Console.WriteLine("No tiene ninguna factura a su nombre.");
+                    }
+                    else
+                    {
+                        Console.WriteLine(cliente.Tiquete.ToString());
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(cliente.Tiquete.ToString());
+                    Console.WriteLine("El usuario no se encuentra registrado.");
                 }
             }
-            else
+            catch (Exception e)
             {
-                Console.WriteLine("El usuario no se encuentra registrado.");
+                Console.WriteLine("Algo pasó localizando la factura: {0}", e);
             }
         }
     }

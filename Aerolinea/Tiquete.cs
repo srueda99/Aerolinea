@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aerolinea
 {
@@ -122,11 +119,11 @@ namespace Aerolinea
                     "Usuario: " + this.Usuario.Nombre + "\n" +
                     "Ciudad partida: " + this.Vuelo.Origen.Nombre + "\n" +
                     "Ciudad llegada: " + this.Vuelo.Destino.Nombre + "\n" +
-                    "Costo base: " + this.PrecioBase + "\n" +
+                    "Costo base: " + Math.Round(this.PrecioBase, 0) + "\n" +
                     "Costo equipaje: " + this.CobrarEquipaje() + "\n" +
                     "Multas: " + this.Multa + "\n" +
                     "---------------------------------" + "\n" +
-                    "Total: " + this.PrecioTotal;
+                    "Total: " + Math.Round(this.PrecioTotal, 0);
                 
         }
     }
